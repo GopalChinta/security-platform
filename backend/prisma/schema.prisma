@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum EventStatus {
+  OPEN
+  RESOLVED
+}
+
+model Tenant {
+  id             String          @id @default(uuid())
+  name           String
+  slug           String          @unique
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  users          User[]
+  campaigns      Campaign[]
+  securityEvents SecurityEvent[]
+  auditLogs      AuditLog[]
+
+  @@map("tenants")
+}
+
+model User {
+  id                  String         @id @default(uuid())
+  tenantId            String
+  name                String
+  email               String
+  passwordHash        String
+  role                Role           @default(USER)
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  tenant              Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdCampaigns    Campaign[]     @relation("CampaignCreator")
+  campaignAssignments CampaignUser[]
+  auditLogs           AuditLog[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([email])
+  @@index([role])
+  @@map("users")
+}
+
+model Campaign {
+  id            String         @id @default(uuid())
+  tenantId      String
+  name          String
+  description   String?        @db.Text
+  status        CampaignStatus @default(DRAFT)
+  createdById   String
+  startDate     DateTime?
+  endDate       DateTime?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy     User           @relation("CampaignCreator", fields: [createdById], references: [id], onDelete: Restrict)
+  assignedUsers CampaignUser[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+  @@map("campaigns")
+}
+
+model CampaignUser {
+  id         String   @id @default(uuid())
+  campaignId String
+  userId     String
+  assignedAt DateTime @default(now())
+
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, userId])
+  @@index([campaignId])
+  @@index([userId])
+  @@map("campaign_users")
+}
+
+model SecurityEvent {
+  id          String      @id @default(uuid())
+  tenantId    String
+  eventType   String
+  severity    Severity    @default(MEDIUM)
+  status      EventStatus @default(OPEN)
+  description String      @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([severity])
+  @@index([status])
+  @@index([createdAt])
+  @@index([tenantId, status])
+  @@index([tenantId, severity])
+  @@index([tenantId, createdAt])
+  @@map("security_events")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  tenantId    String
+  userId      String?
+  action      String
+  entityType  String
+  entityId    String?
+  description String   @db.Text
+  metadata    Json?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([createdAt])
+  @@index([tenantId, createdAt])
+  @@index([userId])
+  @@index([action])
+  @@map("audit_logs")
+}
