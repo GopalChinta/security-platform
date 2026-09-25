@@ -10,26 +10,44 @@ import {
   Terminal,
   FileCode,
   Building2,
+  X,
 } from 'lucide-react';
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { user, isAdmin, isManager } = useAuth();
 
   const canAccessUsers = isAdmin || isManager;
   const canAccessAudit = isAdmin || isManager;
 
   return (
-    <aside className="sidebar">
-      {/* Tenant Indicator */}
+    <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
+      {/* Tenant Indicator & Mobile Close Header */}
       <div className="sidebar-header">
-        <div className="tenant-selector-pill">
-          <div className="tenant-avatar">
-            <Building2 size={16} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+          <div className="tenant-selector-pill" style={{ flex: 1 }}>
+            <div className="tenant-avatar">
+              <Building2 size={16} />
+            </div>
+            <div className="tenant-info">
+              <div className="tenant-name">{user?.tenantName || 'Current Tenant'}</div>
+              <div className="tenant-slug">{user?.tenantSlug ? `slug: ${user.tenantSlug}` : user?.tenantId}</div>
+            </div>
           </div>
-          <div className="tenant-info">
-            <div className="tenant-name">{user?.tenantName || 'Current Tenant'}</div>
-            <div className="tenant-slug">{user?.tenantSlug ? `slug: ${user.tenantSlug}` : user?.tenantId}</div>
-          </div>
+
+          {/* Close button for mobile screen drawer */}
+          <button
+            type="button"
+            className="sidebar-close-mobile-btn"
+            onClick={onClose}
+            aria-label="Close Sidebar Drawer"
+          >
+            <X size={18} />
+          </button>
         </div>
       </div>
 
@@ -39,6 +57,7 @@ export const Sidebar: React.FC = () => {
 
         <NavLink
           to="/dashboard"
+          onClick={onClose}
           className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
         >
           <LayoutDashboard size={18} />
@@ -47,6 +66,7 @@ export const Sidebar: React.FC = () => {
 
         <NavLink
           to="/campaigns"
+          onClick={onClose}
           className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
         >
           <Target size={18} />
@@ -55,6 +75,7 @@ export const Sidebar: React.FC = () => {
 
         <NavLink
           to="/security-events"
+          onClick={onClose}
           className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
         >
           <ShieldAlert size={18} />
@@ -66,6 +87,7 @@ export const Sidebar: React.FC = () => {
         {canAccessUsers ? (
           <NavLink
             to="/users"
+            onClick={onClose}
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
           >
             <Users size={18} />
@@ -86,6 +108,7 @@ export const Sidebar: React.FC = () => {
         {canAccessAudit ? (
           <NavLink
             to="/audit-logs"
+            onClick={onClose}
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
           >
             <ScrollText size={18} />
@@ -107,6 +130,7 @@ export const Sidebar: React.FC = () => {
 
         <NavLink
           to="/cross-tenant-demo"
+          onClick={onClose}
           className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
         >
           <Terminal size={18} />
@@ -127,7 +151,7 @@ export const Sidebar: React.FC = () => {
       {/* Sidebar Footer */}
       <div className="sidebar-footer">
         <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-          Strict Isolation Active • TLS v1.3
+          Strict Isolation Active &bull; TLS v1.3
         </div>
       </div>
     </aside>

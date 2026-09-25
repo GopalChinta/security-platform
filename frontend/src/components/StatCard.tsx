@@ -5,9 +5,16 @@ interface StatCardProps {
   value: string | number;
   subtext?: string;
   icon: React.ReactNode;
-  gradient?: string;
+  cardBorder?: string;
+  hoverBorder?: string;
+  glow?: string;
   iconColor?: string;
   iconBg?: string;
+  smartBadge?: {
+    text: string;
+    bg: string;
+    color: string;
+  };
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -15,27 +22,45 @@ export const StatCard: React.FC<StatCardProps> = ({
   value,
   subtext,
   icon,
-  gradient,
-  iconColor,
-  iconBg,
+  cardBorder = '#e2e8f0',
+  hoverBorder = '#2563eb',
+  glow = 'rgba(37, 99, 235, 0.12)',
+  iconColor = '#2563eb',
+  iconBg = '#eff6ff',
+  smartBadge,
 }) => {
   return (
     <div
-      className="stat-card"
+      className="stat-card-enhanced"
       style={
         {
-          '--stat-gradient': gradient,
+          '--card-border': cardBorder,
+          '--card-hover-border': hoverBorder,
+          '--card-glow': glow,
           '--icon-color': iconColor,
           '--icon-bg': iconBg,
         } as React.CSSProperties
       }
     >
-      <div>
-        <div className="stat-label">{label}</div>
-        <div className="stat-value">{value}</div>
-        {subtext && <div className="stat-subtext">{subtext}</div>}
+      <div className="stat-card-content">
+        <div className="stat-header-row">
+          <span className="stat-label-modern">{label}</span>
+          {smartBadge && (
+            <span
+              className="stat-smart-badge"
+              style={{
+                background: smartBadge.bg,
+                color: smartBadge.color,
+              }}
+            >
+              {smartBadge.text}
+            </span>
+          )}
+        </div>
+        <span className="stat-value-modern">{value}</span>
+        {subtext && <span className="stat-subtext-modern">{subtext}</span>}
       </div>
-      <div className="stat-icon">{icon}</div>
+      <div className="stat-icon-wrap">{icon}</div>
     </div>
   );
 };

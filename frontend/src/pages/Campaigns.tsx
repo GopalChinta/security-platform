@@ -14,7 +14,6 @@ import {
   Target,
   Plus,
   Search,
-  Filter,
   Eye,
   Edit2,
   Trash2,
@@ -185,13 +184,13 @@ export const Campaigns: React.FC = () => {
         )}
       </div>
 
-      {/* Filter Toolbar */}
+      {/* Filter Toolbar - Unified Single Row */}
       <div className="toolbar">
         <div className="search-input-wrapper">
           <Search size={16} className="search-icon" />
           <input
             type="text"
-            className="form-input search-input"
+            className="search-input"
             placeholder="Search campaigns by name or description..."
             value={search}
             onChange={(e) => {
@@ -201,25 +200,21 @@ export const Campaigns: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Filter size={15} style={{ color: 'var(--text-muted)' }} />
-            <select
-              className="form-select"
-              value={statusFilter}
-              onChange={(e) => {
-                setStatusFilter(e.target.value as any);
-                setPage(1);
-              }}
-              style={{ minWidth: '140px' }}
-            >
-              <option value="">All Statuses</option>
-              <option value="DRAFT">DRAFT</option>
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="COMPLETED">COMPLETED</option>
-              <option value="CANCELLED">CANCELLED</option>
-            </select>
-          </div>
+        <div className="toolbar-filters-group">
+          <select
+            className="form-select"
+            value={statusFilter}
+            onChange={(e) => {
+              setStatusFilter(e.target.value as any);
+              setPage(1);
+            }}
+          >
+            <option value="">All Statuses</option>
+            <option value="DRAFT">DRAFT</option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="CANCELLED">CANCELLED</option>
+          </select>
 
           <select
             className="form-select"
@@ -229,7 +224,6 @@ export const Campaigns: React.FC = () => {
               setSortBy(f);
               setSortOrder(o as any);
             }}
-            style={{ minWidth: '160px' }}
           >
             <option value="createdAt-desc">Newest First</option>
             <option value="createdAt-asc">Oldest First</option>

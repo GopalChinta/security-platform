@@ -13,7 +13,6 @@ import {
   ShieldAlert,
   Plus,
   Search,
-  Filter,
   CheckCircle2,
   RotateCcw,
   AlertCircle,
@@ -115,13 +114,13 @@ export const SecurityEvents: React.FC = () => {
         )}
       </div>
 
-      {/* Filter Toolbar */}
+      {/* Filter Toolbar - Unified Single Row */}
       <div className="toolbar">
         <div className="search-input-wrapper">
           <Search size={16} className="search-icon" />
           <input
             type="text"
-            className="form-input search-input"
+            className="search-input"
             placeholder="Search events by type or description..."
             value={search}
             onChange={(e) => {
@@ -131,25 +130,21 @@ export const SecurityEvents: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Filter size={15} style={{ color: 'var(--text-muted)' }} />
-            <select
-              className="form-select"
-              value={severityFilter}
-              onChange={(e) => {
-                setSeverityFilter(e.target.value as any);
-                setPage(1);
-              }}
-              style={{ minWidth: '130px' }}
-            >
-              <option value="">All Severities</option>
-              <option value="CRITICAL">CRITICAL</option>
-              <option value="HIGH">HIGH</option>
-              <option value="MEDIUM">MEDIUM</option>
-              <option value="LOW">LOW</option>
-            </select>
-          </div>
+        <div className="toolbar-filters-group">
+          <select
+            className="form-select"
+            value={severityFilter}
+            onChange={(e) => {
+              setSeverityFilter(e.target.value as any);
+              setPage(1);
+            }}
+          >
+            <option value="">All Severities</option>
+            <option value="CRITICAL">CRITICAL</option>
+            <option value="HIGH">HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="LOW">LOW</option>
+          </select>
 
           <select
             className="form-select"
@@ -158,7 +153,6 @@ export const SecurityEvents: React.FC = () => {
               setStatusFilter(e.target.value as any);
               setPage(1);
             }}
-            style={{ minWidth: '130px' }}
           >
             <option value="">All Statuses</option>
             <option value="OPEN">OPEN</option>
@@ -173,7 +167,6 @@ export const SecurityEvents: React.FC = () => {
               setSortBy(f);
               setSortOrder(o as any);
             }}
-            style={{ minWidth: '150px' }}
           >
             <option value="createdAt-desc">Newest First</option>
             <option value="createdAt-asc">Oldest First</option>

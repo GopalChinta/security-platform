@@ -13,7 +13,6 @@ import {
   Users as UsersIcon,
   UserPlus,
   Search,
-  Filter,
   Edit2,
   Trash2,
   AlertCircle,
@@ -160,13 +159,13 @@ export const Users: React.FC = () => {
         )}
       </div>
 
-      {/* Filter Toolbar */}
+      {/* Filter Toolbar - Unified Single Row */}
       <div className="toolbar">
         <div className="search-input-wrapper">
           <Search size={16} className="search-icon" />
           <input
             type="text"
-            className="form-input search-input"
+            className="search-input"
             placeholder="Search by name or email address..."
             value={search}
             onChange={(e) => {
@@ -176,24 +175,20 @@ export const Users: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Filter size={15} style={{ color: 'var(--text-muted)' }} />
-            <select
-              className="form-select"
-              value={roleFilter}
-              onChange={(e) => {
-                setRoleFilter(e.target.value as any);
-                setPage(1);
-              }}
-              style={{ minWidth: '130px' }}
-            >
-              <option value="">All Roles</option>
-              <option value="ADMIN">ADMIN</option>
-              <option value="MANAGER">MANAGER</option>
-              <option value="USER">USER</option>
-            </select>
-          </div>
+        <div className="toolbar-filters-group">
+          <select
+            className="form-select"
+            value={roleFilter}
+            onChange={(e) => {
+              setRoleFilter(e.target.value as any);
+              setPage(1);
+            }}
+          >
+            <option value="">All Roles</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="USER">USER</option>
+          </select>
 
           <select
             className="form-select"
@@ -203,7 +198,6 @@ export const Users: React.FC = () => {
               setSortBy(f);
               setSortOrder(o as any);
             }}
-            style={{ minWidth: '150px' }}
           >
             <option value="createdAt-desc">Newest First</option>
             <option value="createdAt-asc">Oldest First</option>

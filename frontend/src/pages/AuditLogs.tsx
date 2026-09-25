@@ -8,7 +8,6 @@ import { LoadingSkeleton } from '../components/LoadingSkeleton';
 import {
   ScrollText,
   Search,
-  Filter,
   Calendar,
   AlertCircle,
   FileJson,
@@ -58,13 +57,13 @@ export const AuditLogs: React.FC = () => {
         </div>
       </div>
 
-      {/* Filter Toolbar */}
+      {/* Filter Toolbar - Unified Single Row */}
       <div className="toolbar">
         <div className="search-input-wrapper">
           <Search size={16} className="search-icon" />
           <input
             type="text"
-            className="form-input search-input"
+            className="search-input"
             placeholder="Search audit descriptions, actions, or IP addresses..."
             value={search}
             onChange={(e) => {
@@ -74,33 +73,29 @@ export const AuditLogs: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Filter size={15} style={{ color: 'var(--text-muted)' }} />
-            <select
-              className="form-select"
-              value={actionFilter}
-              onChange={(e) => {
-                setActionFilter(e.target.value);
-                setPage(1);
-              }}
-              style={{ minWidth: '150px' }}
-            >
-              <option value="">All Actions</option>
-              <option value="LOGIN">LOGIN</option>
-              <option value="LOGIN_FAILED">LOGIN_FAILED</option>
-              <option value="CAMPAIGN_CREATED">CAMPAIGN_CREATED</option>
-              <option value="CAMPAIGN_UPDATED">CAMPAIGN_UPDATED</option>
-              <option value="CAMPAIGN_DELETED">CAMPAIGN_DELETED</option>
-              <option value="CAMPAIGN_USER_ASSIGNED">CAMPAIGN_USER_ASSIGNED</option>
-              <option value="CAMPAIGN_USER_REMOVED">CAMPAIGN_USER_REMOVED</option>
-              <option value="SECURITY_EVENT_CREATED">SECURITY_EVENT_CREATED</option>
-              <option value="SECURITY_EVENT_UPDATED">SECURITY_EVENT_UPDATED</option>
-              <option value="USER_CREATED">USER_CREATED</option>
-              <option value="USER_UPDATED">USER_UPDATED</option>
-              <option value="USER_DELETED">USER_DELETED</option>
-            </select>
-          </div>
+        <div className="toolbar-filters-group">
+          <select
+            className="form-select"
+            value={actionFilter}
+            onChange={(e) => {
+              setActionFilter(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="">All Actions</option>
+            <option value="LOGIN">LOGIN</option>
+            <option value="LOGIN_FAILED">LOGIN_FAILED</option>
+            <option value="CAMPAIGN_CREATED">CAMPAIGN_CREATED</option>
+            <option value="CAMPAIGN_UPDATED">CAMPAIGN_UPDATED</option>
+            <option value="CAMPAIGN_DELETED">CAMPAIGN_DELETED</option>
+            <option value="CAMPAIGN_USER_ASSIGNED">CAMPAIGN_USER_ASSIGNED</option>
+            <option value="CAMPAIGN_USER_REMOVED">CAMPAIGN_USER_REMOVED</option>
+            <option value="SECURITY_EVENT_CREATED">SECURITY_EVENT_CREATED</option>
+            <option value="SECURITY_EVENT_UPDATED">SECURITY_EVENT_UPDATED</option>
+            <option value="USER_CREATED">USER_CREATED</option>
+            <option value="USER_UPDATED">USER_UPDATED</option>
+            <option value="USER_DELETED">USER_DELETED</option>
+          </select>
 
           <select
             className="form-select"
@@ -109,7 +104,6 @@ export const AuditLogs: React.FC = () => {
               setEntityTypeFilter(e.target.value);
               setPage(1);
             }}
-            style={{ minWidth: '140px' }}
           >
             <option value="">All Entities</option>
             <option value="AUTH">AUTH</option>
@@ -127,7 +121,6 @@ export const AuditLogs: React.FC = () => {
               setSortBy(f);
               setSortOrder(o as any);
             }}
-            style={{ minWidth: '150px' }}
           >
             <option value="createdAt-desc">Newest First</option>
             <option value="createdAt-asc">Oldest First</option>

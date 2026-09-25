@@ -1,0 +1,532 @@
+/* ==========================================================================
+   Dashboard Styles - Minimalistic, Ultra-Realistic & Animated Blue/White Theme
+   ========================================================================== */
+
+.dashboard-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Ambient Floating Symbols in Dashboard Background */
+.dashboard-ambient-symbol {
+  position: absolute;
+  color: rgba(37, 99, 235, 0.07);
+  pointer-events: none;
+  z-index: 0;
+  animation: dashboardFloat 9s ease-in-out infinite alternate;
+}
+
+.dashboard-symbol-1 { top: -20px; right: 8%; animation-delay: 0s; font-size: 30px; }
+.dashboard-symbol-2 { top: 400px; left: -10px; animation-delay: 2.5s; font-size: 28px; }
+.dashboard-symbol-3 { top: 650px; right: 4%; animation-delay: 1.2s; font-size: 32px; }
+
+@keyframes dashboardFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+  100% { transform: translateY(8px) rotate(-4deg); }
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+/* Live Monitoring Radar Badge */
+.live-radar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.radar-ping-container {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.radar-wave {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #10b981;
+  animation: radarWave 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes radarWave {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+
+.tenant-env-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.tenant-name-highlight {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.tenant-slug-badge {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Smart Compact Stat Cards with Full-Border Theming & Micro-Animations */
+.stat-card-enhanced {
+  background: #ffffff;
+  border: 1.5px solid var(--card-border, #e2e8f0);
+  border-radius: 15px;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+
+.stat-card-enhanced:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-hover-border, #2563eb);
+  box-shadow: 0 8px 24px -4px var(--card-glow, rgba(37, 99, 235, 0.12));
+}
+
+.stat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.stat-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stat-label-modern {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.stat-smart-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.stat-value-modern {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  line-height: 1.1;
+  margin: 0.1rem 0;
+}
+
+.stat-subtext-modern {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-bg, #eff6ff);
+  color: var(--icon-color, #2563eb);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.stat-card-enhanced:hover .stat-icon-wrap {
+  transform: scale(1.12);
+}
+
+/* Middle Layout Split Cards */
+.dashboard-grid-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   NEW: Next-Gen Animated Campaign Distribution Multi-Segment Matrix
+   ========================================================================== */
+
+.campaign-distribution-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Top Unified Multi-Segment Rail */
+.campaign-segmented-rail-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.campaign-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.campaign-unified-rail {
+  height: 14px;
+  background: #f1f5f9;
+  border-radius: 9999px;
+  display: flex;
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.rail-segment {
+  height: 100%;
+  border-radius: 9999px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.rail-segment:hover {
+  filter: brightness(1.15);
+  transform: scaleY(1.15);
+  z-index: 2;
+}
+
+.rail-segment-active {
+  background: linear-gradient(90deg, #059669, #10b981);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.rail-segment-draft {
+  background: linear-gradient(90deg, #64748b, #94a3b8);
+}
+
+.rail-segment-completed {
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.rail-segment-cancelled {
+  background: linear-gradient(90deg, #e11d48, #f43f5e);
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.3);
+}
+
+/* Interactive 2x2 Matrix Tiles for Campaign Statuses */
+.campaign-matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.campaign-matrix-tile {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.campaign-matrix-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.08);
+}
+
+.tile-active {
+  border-color: #a7f3d0;
+  background: linear-gradient(145deg, #ffffff, #f0fdf4);
+}
+.tile-active:hover {
+  border-color: #34d399;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+}
+
+.tile-draft {
+  border-color: #e2e8f0;
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+}
+.tile-draft:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 20px rgba(100, 116, 139, 0.12);
+}
+
+.tile-completed {
+  border-color: #bfdbfe;
+  background: linear-gradient(145deg, #ffffff, #eff6ff);
+}
+.tile-completed:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+}
+
+.tile-cancelled {
+  border-color: #fecdd3;
+  background: linear-gradient(145deg, #ffffff, #fff1f2);
+}
+.tile-cancelled:hover {
+  border-color: #f87171;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.15);
+}
+
+.tile-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tile-badge-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tile-pulse-beacon {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: beaconPing 1.6s infinite;
+}
+
+@keyframes beaconPing {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+
+.tile-meta-sub {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.tile-count-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tile-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tile-pct-chip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  margin-top: 3px;
+}
+
+/* Incident Threat Posture Interactive Grid */
+.threat-posture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.threat-mini-card {
+  padding: 1.15rem;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.threat-mini-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.threat-card-critical {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+.threat-card-critical:hover {
+  border-color: #fda4af;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.15);
+}
+
+.threat-card-high {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+.threat-card-high:hover {
+  border-color: #fdba74;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
+}
+
+.threat-card-open {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+.threat-card-open:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+}
+
+.threat-card-resolved {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.threat-card-resolved:hover {
+  border-color: #6ee7b7;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+}
+
+.threat-value-num {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.threat-label-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Live pulse for critical threat counts */
+.threat-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e11d48;
+  animation: criticalPulse 1.4s infinite;
+}
+
+@keyframes criticalPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+
+/* Activity Audit Trail Table Polish */
+.audit-row-animated {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.audit-row-animated:hover {
+  background-color: #f8fafc !important;
+}
+
+.audit-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bfdbfe;
+}
+
+.audit-ip-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
