@@ -27,9 +27,9 @@ export const Navbar: React.FC = () => {
           to="/cross-tenant-demo"
           className="btn btn-secondary btn-sm"
           style={{
-            borderColor: 'rgba(0, 242, 254, 0.4)',
-            color: '#38bdf8',
-            background: 'rgba(0, 242, 254, 0.08)',
+            borderColor: '#bfdbfe',
+            color: '#2563eb',
+            background: '#eff6ff',
           }}
         >
           <Terminal size={14} />

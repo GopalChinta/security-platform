@@ -65,7 +65,7 @@ export const Dashboard: React.FC = () => {
             <span className="badge badge-ACTIVE">LIVE MONITORING</span>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-            Tenant Environment: <strong style={{ color: '#38bdf8' }}>{tenant.name}</strong> ({tenant.slug})
+            Tenant Environment: <strong style={{ color: '#2563eb' }}>{tenant.name}</strong> ({tenant.slug})
           </p>
         </div>
 
